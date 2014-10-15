@@ -6,7 +6,8 @@
 
 public class MainScene : SEScene
 {
-	public static bool gameover;
+	SESprite end;
+	public static bool gameover=false;
 	public static int x;
 	public static int y;
 	int w;
@@ -16,6 +17,7 @@ public class MainScene : SEScene
 	public static SESprite bg;
 	int ctr;
 	public void initialize(SEResourceCache rsc) {
+		gameover=false;
 		base.initialize(rsc);
 		AudioClipManager.prepare("bgsound");
 		w = get_scene_width();
@@ -25,27 +27,40 @@ public class MainScene : SEScene
 		bg = add_sprite_for_image(SEImage.for_resource("bg"));
 		bg.move(0,0);
 		add_entity(new HeroEntity());
-		ctr = Math.random(5,10);
+		ctr = Math.random(1,6);
+		rsc.prepare_font("style","arial bold color=black",60);
+		
 		for(ctr;ctr>=0;ctr--)
 		{
 			add_entity(new MonsterEntity());
 		}
-		//AudioClipManager.play("bgsound");
+		AudioClipManager.play("bgsound");
 	}
 
+
 	public void on_pointer_move(SEPointerInfo pi)
-	{
+	{	
 		if(gameover==true)
 		{
-			
+			end = add_sprite_for_text("GAMEOVER","style");
+			end.move(0.5*get_scene_width()-0.5*end.get_width(),0.5*get_scene_height()-0.5*end.get_height());
 		}
-		else
+		
+		if(gameover!=true)
 		{	
 			base.on_pointer_move(pi);
 			x = pi.get_x();
 			y = pi.get_y();
 		}
 		
+	}
+
+	public void on_pointer_press(SEPointerInfo pi)
+	{
+		if(gameover==true)
+		{
+			switch_scene(new MainMenu());
+		}
 	}
 
 	public void cleanup() {
