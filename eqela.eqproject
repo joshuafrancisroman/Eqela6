@@ -1,0 +1,9 @@
+
+#
+# Project configuration file for
+# RPGMaker
+#
+
+projectname: RPGMaker
+vendorid: com.mycompany
+mainmodule: com.mycompany.rpgmaker
