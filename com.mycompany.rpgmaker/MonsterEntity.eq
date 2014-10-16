@@ -45,15 +45,17 @@ public class MonsterEntity: SEEntity
 		mx = enemy.get_x();
 		my = enemy.get_y();
 
-
-		int boundsX = cpx-0.5*enemy.get_width()+enemy.get_width();//square value of the hero, using enemygetwidth because same size
+		int newX = cpx-0.5*enemy.get_width(); //this is the value on the upper left corner of kirby
+		int newY = cpy-0.5*enemy.get_height();
+		
+		int boundsX = cpx-0.5*enemy.get_width()+enemy.get_width();//squaare value or width of kirby using enemy width because same value
 		int boundsY = cpy-0.5*enemy.get_height()+enemy.get_height();
-		int EnBoundsX = mx+enemy.get_width();//square value of monster
+		int EnBoundsX = mx+enemy.get_width();//square value of monster or width of monster
 		int EnBoundsY = my+enemy.get_height();
 
-		//if( (EnBoundsX>= cpx && EnBoundsX<= boundsX) &&  (EnBoundsY>=cpy && EnBoundsY<=boundsY) )			//collision when the arrow hits any part of the whole enemy sprite
+		//if( (EnBoundsX>= cpx && EnBoundsX<= boundsX) &&  (EnBoundsY>= cpy  && EnBoundsY<=boundsY) )			//collision when the arrow hits any part of the whole enemy sprite
 
-		if( ( (mx >= cpx || EnBoundsX >= cpx ) && (EnBoundsX <= boundsX || mx<=boundsX) )  && ( (my >= cpy || EnBoundsY >= cpy) && (EnBoundsY <= boundsY || my <= boundsY) )   )
+		if( ( (mx >= newX || EnBoundsX >= newX ) && (EnBoundsX <= boundsX || mx<=boundsX) )  && ( (my >= newY || EnBoundsY >= newY) && (EnBoundsY <= boundsY || my <= boundsY) )   )
 		{
 			//collision on bottom and right
 			MainScene.gameover=true;
